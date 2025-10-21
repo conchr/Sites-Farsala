@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Αρχαιολογικοί Χώροι στα Φάρσαλα</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            background-color: #f5e9d7; /* Χρώμα πάπυρου */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><path d="M0,0 L100,0 L100,100 Z" fill="%235a3825"/></svg>');
+            color: #3a2615;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 2px solid #d4b78c;
+            position: relative;
+        }
+
+        .municipality {
+            font-size: 0.9rem;
+            color: #5a3825;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .title {
+            font-size: 2.2rem;
+            text-align: center;
+            color: #5a3825;
+            margin: 20px 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-weight: normal;
+        }
+
+        .page-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            padding: 20px;
+            background-color: rgba(255, 248, 240, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid #d4b78c;
+        }
+
+        .image-title {
+            font-size: 1.8rem;
+            color: #5a3825;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: normal;
+        }
+
+        .page-description {
+            max-width: 800px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #5a3825;
+            margin-top: 10px;
+            padding: 0 15px;
+        }
+
+        .navigation {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            padding: 15px;
+        }
+
+        .nav-buttons {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            max-width: 500px;
+        }
+
+        button {
+            background-color: #8b6b4c;
+            color: #f5e9d7;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background-color: #6d533c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .central-button {
+            align-self: center;
+            margin-top: 10px;
+        }
+
+        .page-indicator {
+            font-size: 1.1rem;
+            color: #5a3825;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .keyboard-hint {
+            font-size: 0.9rem;
+            color: #7a5c3c;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .image-title {
+                font-size: 1.5rem;
+            }
+            
+            .municipality {
+                font-size: 0.8rem;
+            }
+            
+            button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+            
+            .page-description {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .nav-buttons button {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .page-description {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* For 4K screens and larger displays */
+        @media (min-width: 2000px) {
+            .container {
+                max-width: 1800px;
+            }
+            
+            .title {
+                font-size: 3.5rem;
+            }
+            
+            .image-title {
+                font-size: 2.5rem;
+            }
+            
+            button {
+                padding: 20px 35px;
+                font-size: 1.5rem;
+            }
+            
+            .page-description {
+                font-size: 1.5rem;
+                max-width: 1200px;
+            }
+            
+            .municipality {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="municipality">ΔΗΜΟΣ ΦΑΡΣΑΛΩΝ 2025</div>
+        </div>
+        
+        <h1 class="title">Αρχαιολογικοί Χώροι στα Φάρσαλα</h1>
+        
+        <div class="page-content">
+            <div class="image-container">
+                <img id="current-image" src="" alt="Αρχαιολογικός χώρος">
+                <h2 id="current-title" class="image-title"></h2>
+            </div>
+            
+            <div id="current-description" class="page-description"></div>
+            
+            <div class="navigation">
+                <div class="nav-buttons">
+                    <button id="prev-btn">Προηγούμενη Σελίδα</button>
+                    <button id="next-btn">Επόμενη Σελίδα</button>
+                </div>
+                <button id="central-btn" class="central-button">Κεντρική Σελίδα</button>
+                <div id="page-indicator" class="page-indicator">Σελίδα 1 από 8</div>
+                <div class="keyboard-hint">Μπορείτε επίσης να χρησιμοποιήσετε τα βελάκια ← → του πληκτρολογίου για πλοήγηση</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Δεδομένα για κάθε σελίδα
+        const pages = [
+            {
+                image: "https://github.com/conchr/Sites-Farsala/raw/main/Achilles.jpg",
+                title: "Ο Αχιλλέας",
+                description: "Η αναπαράσταση του Αχιλλέα, του μεγάλου ήρωα του Τρωικού πολέμου, που συνδέεται ιστορικά με την περιοχή των Φαρσάλων."
+            },
+            {
+                image: "https://github.com/conchr/Sites-Farsala/raw/main/EFA_Larisas_AkrFarsalon_BA.jpg",
+                title: "Η Ακρόπολη των Φαρσάλων",
+                description: "Η αρχαία ακρόπολη των Φαρσάλων, που αποτελούσε το οχυρό και διοικητικό κέντρο της πόλης κατά την αρχαιότητα."
+            },
+            {
+                image: "https://github.com/conchr/Sites-Farsala/raw/main/THOLOTOS-TAFOS.jpg",
+                title: "Θολωτός Τάφος",
+                description: "Εντυπωσιακός θολωτός τάφος από την Μυκηναϊκή περίοδο, που αποτελεί σημαντικό ταφικό μνημείο στην περιοχή των Φαρσάλων."
+            },
+            {
+                image: "https://github.com/conchr/Sites-Farsala/raw/main/passa%203.jpg",
+                title: "Η Γέφυρα του Πασσά",
+                description: "Η ιστορική γέφυρα του Πασσά που χτίστηκε στο τέλος του 17ου αιώνα και συνέδεε την Βόρεια με τη Νότια Ελλάδα μέχρι το 1990."
+            },
+            {
+                image: "https://github.com/conchr/Sites-Farsala/raw/main/%CE%9A%CE%B1%CF%81%CE%B1%CE%BC%CE%AF%CF%87%CE%BF%CF%821.jpg",
+                title: "Ο Πύργος του Καραμίχου",
+                description: "Πυργόσπιτο από την Οθωμανική εποχή."
+            },
+            {
+                image: "https://github.com/conchr/Sites-Farsala/raw/main/peyma-2.jpg",
+                title: "Κάστρο Καλλιθέας",
+                description: "" // Διαγραμμένο κείμενο
+            },
+            {
+                image: "https://github.com/conchr/Sites-Farsala/raw/main/%CF%83%CE%BA%CF%89%CF%84%CE%BF%CF%85%CF%83%CE%B1.jpg",
+                title: "Ανασκαφές στη Σκωτούσα",
+                description: "Οι συνεχιζόμενες αρχαιολογικές ανασκαφές στη Σκωτούσα, που αποκαλύπτουν σημαντικά ευρήματα από την πλούσια ιστορία της περιοχής."
+            },
+            {
+                image: "https://github.com/conchr/Sites-Farsala/raw/main/%CE%BC%CF%85%CE%BA%CE%B7%CE%BD%CE%B1%CE%B9%CE%BA%CE%BF%CF%82%20%CF%84%CE%B1%CF%86%CE%BF%CF%82.jpg",
+                title: "Μυκηναϊκός Τάφος",
+                description: "Μυκηναϊκός τάφος που αποκαλύφθηκε στην περιοχή, μαρτυρία της παρουσίας του μυκηναϊκού πολιτισμού στα Φάρσαλα."
+            }
+        ];
+
+        // Μεταβλητές για διαχείριση της τρέχουσας σελίδας
+        let currentPage = 0;
+        
+        // Στοιχεία HTML
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const centralBtn = document.getElementById('central-btn');
+        const currentImage = document.getElementById('current-image');
+        const currentTitle = document.getElementById('current-title');
+        const currentDescription = document.getElementById('current-description');
+        const pageIndicator = document.getElementById('page-indicator');
+        
+        // Λειτουργία για το κουμπί "Προηγούμενη Σελίδα"
+        prevBtn.addEventListener('click', function() {
+            goToPreviousPage();
+        });
+        
+        // Λειτουργία για το κουμπί "Επόμενη Σελίδα"
+        nextBtn.addEventListener('click', function() {
+            goToNextPage();
+        });
+        
+        // Λειτουργία για το κουμπί "Κεντρική Σελίδα"
+        centralBtn.addEventListener('click', function() {
+            window.location.href = 'https://conchr.github.io/Farsala-Center-Page/';
+        });
+        
+        // Συνάρτηση για μετάβαση στην προηγούμενη σελίδα
+        function goToPreviousPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updatePage();
+            }
+        }
+        
+        // Συνάρτηση για μετάβαση στην επόμενη σελίδα
+        function goToNextPage() {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                updatePage();
+            }
+        }
+        
+        // Προσθήκη event listener για τα βελάκια του πληκτρολογίου
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                goToPreviousPage();
+            } else if (event.key === 'ArrowRight') {
+                goToNextPage();
+            }
+        });
+        
+        // Συνάρτηση ενημέρωσης της σελίδας
+        function updatePage() {
+            const page = pages[currentPage];
+            
+            // Ενημέρωση εικόνας
+            currentImage.src = page.image;
+            currentImage.alt = page.title;
+            
+            // Ενημέρωση τίτλου
+            currentTitle.textContent = page.title;
+            
+            // Ενημέρωση περιγραφής
+            currentDescription.textContent = page.description;
+            
+            // Ενημέρωση δείκτη σελίδας
+            pageIndicator.textContent = `Σελίδα ${currentPage + 1} από ${pages.length}`;
+            
+            // Απενεργοποίηση κουμπιών όταν φτάνουμε στα όρια
+            prevBtn.disabled = currentPage === 0;
+            nextBtn.disabled = currentPage === pages.length - 1;
+            
+            // Οπτική αναπαράσταση απενεργοποίησης
+            if (prevBtn.disabled) {
+                prevBtn.style.opacity = "0.5";
+                prevBtn.style.cursor = "not-allowed";
+            } else {
+                prevBtn.style.opacity = "1";
+                prevBtn.style.cursor = "pointer";
+            }
+            
+            if (nextBtn.disabled) {
+                nextBtn.style.opacity = "0.5";
+                nextBtn.style.cursor = "not-allowed";
+            } else {
+                nextBtn.style.opacity = "1";
+                nextBtn.style.cursor = "pointer";
+            }
+        }
+        
+        // Αρχικοποίηση
+        updatePage();
+    </script>
+</body>
+</html>

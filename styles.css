@@ -1,0 +1,634 @@
+/* ============================================================
+   0. FONTS
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
+:root {
+    --bg-deep: #080b16;
+    --bg-mid: #0f1424;
+    --bg-surface: rgba(22, 27, 46, 0.72);
+
+    --gold: #d4af37;
+    --gold-light: #f0c75e;
+    --gold-dark: #a8842c;
+
+    --purple: #8b5cf6;
+
+    --text-primary: #f0f2f8;
+    --text-secondary: #a8aec5;
+    --text-muted: #6c7490;
+
+    --border-subtle: rgba(212, 175, 55, 0.12);
+    --border-strong: rgba(212, 175, 55, 0.35);
+    --border-white: rgba(255, 255, 255, 0.08);
+
+    --shadow-card: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.08);
+    --shadow-glow: 0 0 40px rgba(212, 175, 55, 0.25), 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+    --r-sm: 12px;
+    --r-md: 16px;
+    --r-lg: 24px;
+
+    --t-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    --t-base: 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    --t-slow: 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   2. RESET
+   ============================================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-deep);
+    background-image:
+        radial-gradient(ellipse 80% 55% at 50% 0%, rgba(139, 92, 246, 0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(212, 175, 55, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 0% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(212, 175, 55, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(212, 175, 55, 0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ============================================================
+   3. PRESENTATION CONTAINER
+   ============================================================ */
+.presentation-container {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    background: var(--bg-surface);
+    backdrop-filter: blur(28px) saturate(140%);
+    -webkit-backdrop-filter: blur(28px) saturate(140%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1;
+    padding: clamp(0.75rem, 1.5vh, 1.25rem) clamp(1rem, 2.5vw, 2.25rem);
+}
+
+.presentation-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(212, 175, 55, 0.4) 20%,
+        rgba(240, 199, 94, 0.95) 50%,
+        rgba(212, 175, 55, 0.4) 80%,
+        transparent 100%);
+    z-index: 5;
+}
+
+/* ============================================================
+   4. HEADER
+   ============================================================ */
+.site-header {
+    flex-shrink: 0;
+    text-align: center;
+    padding-bottom: clamp(0.5rem, 1.2vh, 0.9rem);
+    margin-bottom: clamp(0.5rem, 1.2vh, 0.9rem);
+    border-bottom: 1px solid var(--border-subtle);
+    position: relative;
+}
+
+.site-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.municipality-header {
+    font-size: clamp(0.65rem, 0.85vw, 0.85rem);
+    font-weight: 500;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    padding-left: 0.42em;
+}
+
+.page-main-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(1.35rem, min(2.8vw, 4vh), 2.4rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #f5d886 0%, #d4af37 45%, #a8842c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--gold);
+    filter: drop-shadow(0 2px 16px rgba(212, 175, 55, 0.25));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin: 0;
+    text-wrap: balance;
+}
+
+.page-main-title i {
+    color: var(--purple);
+    font-size: 0.85em;
+    -webkit-text-fill-color: var(--purple);
+    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.5));
+}
+
+/* ============================================================
+   5. PROGRESS BAR
+   ============================================================ */
+.progress-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(212, 175, 55, 0.1);
+    z-index: 10;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg,
+        rgba(139, 92, 246, 0.7) 0%,
+        var(--gold) 50%,
+        var(--gold-light) 100%);
+    width: 12.5%;
+    transition: width 0.5s var(--t-slow);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+}
+
+/* ============================================================
+   6. SLIDE WRAPPER
+   ============================================================ */
+.slide-wrapper {
+    flex: 1;
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* ============================================================
+   7. SLIDES
+   ============================================================ */
+.slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.4) transparent;
+}
+
+.slide.active {
+    display: flex;
+    flex-direction: column;
+    animation: slideFadeIn 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideFadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide::-webkit-scrollbar { width: 6px; }
+.slide::-webkit-scrollbar-track { background: transparent; }
+.slide::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.4);
+    border-radius: 3px;
+}
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 1.2vh, 1rem);
+    padding: clamp(0.5rem, 1vh, 1rem) 0;
+    min-height: 0;
+    align-items: center;
+}
+
+/* ============================================================
+   8. TYPOGRAPHY
+   ============================================================ */
+.slide-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, min(2.2vw, 3.2vh), 1.9rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 0;
+    padding-bottom: clamp(0.4rem, 0.9vh, 0.7rem);
+    text-wrap: balance;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.slide-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.slide-text {
+    font-size: clamp(0.85rem, min(1.05vw, 1.4vh), 1.1rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 900px;
+    text-align: center;
+    padding: 0 clamp(0.5rem, 1.5vw, 1rem);
+}
+
+.slide-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ============================================================
+   9. IMAGE
+   ============================================================ */
+.image-container {
+    width: 100%;
+    max-width: 900px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 clamp(0.5rem, 1.5vw, 1rem);
+    margin: 0 auto;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: clamp(180px, 50vh, 600px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-subtle);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(212, 175, 55, 0.08);
+    padding: 4px;
+    background: rgba(212, 175, 55, 0.05);
+    transition: transform var(--t-base), box-shadow var(--t-base), border-color var(--t-base);
+    display: block;
+}
+
+.image-container img:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-glow);
+}
+
+/* ============================================================
+   10. NAVIGATION
+   ============================================================ */
+.navigation-footer {
+    flex-shrink: 0;
+    padding-top: clamp(0.5rem, 1.1vh, 0.85rem);
+    margin-top: clamp(0.4rem, 0.9vh, 0.75rem);
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.35rem, 0.85vh, 0.6rem);
+    position: relative;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+}
+
+.nav-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: clamp(0.5rem, 1vh, 0.85rem) clamp(1rem, 1.5vw, 1.6rem);
+    min-height: clamp(44px, 5.5vh, 60px);
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-white);
+    background: rgba(22, 27, 46, 0.7);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: clamp(0.82rem, 0.95vw, 1rem);
+    cursor: pointer;
+    transition: var(--t-base);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    min-width: 140px;
+}
+
+.nav-button:not(:disabled):hover,
+.nav-button:not(:disabled):focus {
+    background: rgba(30, 37, 60, 0.9);
+    border-color: var(--border-strong);
+    color: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+    outline: none;
+}
+
+.nav-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(0.85rem, 1vw, 1.05rem);
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+    padding: 0.35rem 1rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 999px;
+    background: rgba(212, 175, 55, 0.06);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.central-return-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.central-page-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: clamp(0.5rem, 1vh, 0.75rem) clamp(1.25rem, 2vw, 2rem);
+    min-height: clamp(40px, 5vh, 54px);
+    border-radius: var(--r-md);
+    border: 1px solid var(--border-strong);
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(168, 132, 44, 0.22));
+    color: var(--gold-light);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: clamp(0.82rem, 0.95vw, 1rem);
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--t-base);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.central-page-button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg,
+        transparent 0%, transparent 35%,
+        rgba(255, 255, 255, 0.16) 50%,
+        transparent 65%, transparent 100%);
+    transform: translateX(-120%);
+    transition: transform var(--t-slow);
+    pointer-events: none;
+}
+
+.central-page-button:hover::after { transform: translateX(120%); }
+
+.central-page-button:hover,
+.central-page-button:focus {
+    transform: translateY(-2px);
+    border-color: var(--gold-light);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(212, 175, 55, 0.35);
+    outline: none;
+}
+
+.keyboard-hint {
+    font-size: clamp(0.65rem, 0.8vw, 0.8rem);
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    text-align: center;
+    margin: 0;
+}
+
+.keyboard-hint i {
+    color: var(--gold);
+    margin-right: 0.35rem;
+}
+
+/* ============================================================
+   11. RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    .presentation-container {
+        padding: 1rem 0.75rem;
+    }
+
+    .nav-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .page-indicator {
+        order: -1;
+        flex-basis: 100%;
+        margin-bottom: 0.4rem;
+    }
+
+    .nav-button {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .central-page-button {
+        width: 100%;
+    }
+
+    .image-container img {
+        max-height: 38vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .presentation-container {
+        padding: 0.75rem 0.6rem;
+    }
+
+    .municipality-header {
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+    }
+
+    .image-container img {
+        max-height: 32vh;
+    }
+}
+
+/* ============================================================
+   12. LARGE LANDSCAPE — 80" / 4K
+   ============================================================ */
+@media (min-width: 1600px) and (orientation: landscape) {
+    .page-main-title {
+        font-size: clamp(1.8rem, min(3vw, 4.2vh), 2.75rem);
+    }
+
+    .slide-title {
+        font-size: clamp(1.5rem, min(2.4vw, 3.4vh), 2.25rem);
+    }
+
+    .slide-text {
+        font-size: clamp(0.95rem, min(1.1vw, 1.5vh), 1.2rem);
+    }
+
+    .image-container img {
+        max-height: clamp(280px, 54vh, 720px);
+    }
+
+    .nav-button {
+        min-height: clamp(56px, 6.5vh, 78px);
+        font-size: 1.05rem;
+        min-width: 200px;
+    }
+
+    .page-indicator {
+        font-size: 1.15rem;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .central-page-button {
+        min-height: clamp(50px, 6vh, 68px);
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 2400px) and (orientation: landscape) {
+    .page-main-title {
+        font-size: clamp(2.5rem, min(3.4vw, 4.6vh), 3.75rem);
+    }
+
+    .slide-title {
+        font-size: clamp(2rem, min(2.8vw, 3.8vh), 3.25rem);
+    }
+
+    .slide-text {
+        font-size: clamp(1.05rem, min(1.15vw, 1.55vh), 1.35rem);
+    }
+
+    .image-container img {
+        max-height: clamp(360px, 58vh, 820px);
+    }
+}
+
+/* Short landscape */
+@media (max-height: 700px) and (orientation: landscape) {
+    .slide-title {
+        font-size: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .slide-text {
+        font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+        line-height: 1.55;
+    }
+
+    .image-container img {
+        max-height: 44vh;
+    }
+
+    .nav-button {
+        min-height: 42px;
+        padding: 0.45rem 1.1rem;
+        font-size: 0.82rem;
+        min-width: 120px;
+    }
+
+    .central-page-button {
+        min-height: 38px;
+        padding: 0.4rem 1.1rem;
+        font-size: 0.82rem;
+    }
+}
+
+/* Touch-friendly */
+@media (hover: none) and (pointer: coarse) {
+    .nav-button:not(:disabled):hover,
+    .central-page-button:hover,
+    .image-container img:hover {
+        transform: none;
+    }
+    .nav-button:not(:disabled):active,
+    .central-page-button:active {
+        transform: scale(0.98);
+    }
+}
